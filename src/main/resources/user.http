@@ -1,0 +1,80 @@
+###Добавление задачи
+POST localhost:8081/task
+Content-Type: application/json
+
+{
+  "date": "2023-07-10 22:22:04",
+  "priority": "LOW",
+  "status": "PROCESSED",
+  "title": "Помыть туалет у кошки",
+  "category": {
+    "id": 1,
+    "name": "Дом"
+  },
+  "user": {
+    "id": 1,
+    "username": "dasha",
+    "email": "blabla@bla.ru",
+    "password": "123123134"
+  }
+}
+
+###Изменение статуса
+PUT localhost:8081/task/status
+Content-Type: application/json
+
+{
+  "id": 1
+}
+
+###Изменение приоритета
+PUT localhost:8081/task/priority
+Content-Type: application/json
+
+{
+  "id": 552,
+  "priority": "HIGH"
+}
+
+
+###Изменение категории
+PUT localhost:8081/task/category
+Content-Type: application/json
+
+{
+  "id": 552,
+  "category": {
+    "id": 1,
+    "name": "Котик"
+  }
+}
+
+
+###Изменение всей задачи
+PUT localhost:8081/task/category
+Content-Type: application/json
+
+{
+  "id": 552,
+  "date": "2023-07-10 22:22:04",
+  "priority": "LOW",
+  "status": "PROCESSED",
+  "title": "Помыть туалет у кошки",
+  "category": {
+    "id": 1,
+    "name": "Дом"
+  },
+  "user": {
+    "id": 1,
+    "username": "dasha",
+    "email": "blabla@bla.ru",
+    "password": "123123134"
+  }
+}
+
+###Поиск по имени
+GET localhost:8081/task?title=Помыть
+
+
+###Удаление продукта со склада
+DELETE localhost:8081/task/552

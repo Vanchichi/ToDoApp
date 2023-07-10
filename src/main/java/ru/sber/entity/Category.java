@@ -1,9 +1,9 @@
 package ru.sber.entity;
 
 
+import jakarta.annotation.Nonnull;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,10 +18,14 @@ import lombok.NoArgsConstructor;
         })
 public class Category {
     @Id
+    @Nonnull
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
 
-    @NotBlank
-    @Size(max = 20)
+    @Nonnull
     private String name;
+
+    public Category(String name) {
+        this.name = name;
+    }
 }

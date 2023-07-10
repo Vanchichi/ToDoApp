@@ -1,87 +1,98 @@
 package ru.sber.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
+import lombok.extern.slf4j.Slf4j;
+import ru.sber.entity.EPriority;
+import ru.sber.entity.EStatus;
 import ru.sber.entity.Task;
 import ru.sber.service.TaskService;
+import ru.sber.entity.Category;
+import java.net.URI;
+import java.util.List;
 
-@Controller
+@Slf4j
+@RestController
+@RequestMapping("task")
 public class TaskController {
 
+
+    private TaskService taskService;
+
     @Autowired
-    private TaskService service;
-
-    @GetMapping({"/", "viewToDoList"})
-    public String viewAllToDoItems(Model model, @ModelAttribute("message") String message) {
-        model.addAttribute("list", service.getAllToDoItems());
-        model.addAttribute("message", message);
-
-        return "ViewToDoList";
+    public TaskController(TaskService taskService) {
+        this.taskService = taskService;
     }
 
-    @GetMapping("/updateToDoStatus/{id}")
-    public String updateToDoStatus(@PathVariable Long id, RedirectAttributes redirectAttributes) {
-        if (service.updateStatus(id)) {
-            redirectAttributes.addFlashAttribute("message", "Update Success");
-            return "redirect:/viewToDoList";
+    @PostMapping
+    public ResponseEntity<?> addTask(@RequestBody Task todo) {
+        log.info("Добавление задачи");
+        return ResponseEntity.created(URI.create("/task" + taskService.saveOrUpdateToDoItem(todo))).build();
+    }
+
+    @PutMapping
+    public ResponseEntity<?>  update(@RequestBody Task todo){
+        log.info("Обновление задачи");
+        boolean update = taskService.saveOrUpdateToDoItem(todo);
+        if (update){
+            return ResponseEntity.ok().build();
+        } else{
+            return ResponseEntity.notFound().build();
         }
-
-        redirectAttributes.addFlashAttribute("message", "Update Failure");
-        return "redirect:/viewToDoList";
     }
 
-    @GetMapping("/addToDoItem")
-    public String addToDoItem(Model model) {
-        model.addAttribute("todo", new Task());
-
-        return "AddToDoItem";
-    }
-
-    @PostMapping("/saveToDoItem")
-    public String saveToDoItem(Task todo, RedirectAttributes redirectAttributes) {
-        if(service.saveOrUpdateToDoItem(todo)) {
-            redirectAttributes.addFlashAttribute("message", "Save Success");
-            return "redirect:/viewToDoList";
+    @PutMapping("/status")
+    public ResponseEntity<?>  updateStatus( @RequestBody(required = true) Long id_task){
+    log.info("Обновление статуса");
+    boolean changeStatus = taskService.updateStatus(id_task);
+   if(changeStatus){
+           return ResponseEntity.ok().build();
+        } else{
+            return ResponseEntity.notFound().build();
         }
-
-        redirectAttributes.addFlashAttribute("message", "Save Failure");
-        return "redirect:/addToDoItem";
     }
 
-    @GetMapping("/editToDoItem/{id}")
-    public String editToDoItem(@PathVariable Long id, Model model) {
-        model.addAttribute("todo", service.getToDoItemById(id));
-
-        return "EditToDoItem";
-    }
-
-    @PostMapping("/editSaveToDoItem")
-    public String editSaveToDoItem(Task todo, RedirectAttributes redirectAttributes) {
-        if(service.saveOrUpdateToDoItem(todo)) {
-            redirectAttributes.addFlashAttribute("message", "Edit Success");
-            return "redirect:/viewToDoList";
+    @PutMapping("/priority")
+    public ResponseEntity<?>  updatePriority(@RequestBody Long id_task, @RequestBody EPriority priority){
+        log.info("Обновление приоритета");
+        boolean changePriority = taskService.updatePriority(id_task,priority);
+        if(changePriority){
+            return ResponseEntity.ok().build();
+        } else{
+            return ResponseEntity.notFound().build();
         }
-
-        redirectAttributes.addFlashAttribute("message", "Edit Failure");
-        return "redirect:/editToDoItem/" + todo.getId();
     }
 
-    @GetMapping("/deleteToDoItem/{id}")
-    public String deleteToDoItem(@PathVariable Long id, RedirectAttributes redirectAttributes) {
-        if (service.deleteToDoItem(id)) {
-            redirectAttributes.addFlashAttribute("message", "Delete Success");
-            return "redirect:/viewToDoList";
+    @PutMapping("/category")
+    public ResponseEntity<?>  updateCategory(@RequestBody Long id_task, @RequestBody Category category){
+        log.info("Обновление категории");
+        boolean changeCategory = taskService.updateCategory(id_task,category);
+        if(changeCategory){
+            return ResponseEntity.ok().build();
+        } else{
+            return ResponseEntity.notFound().build();
         }
-
-        redirectAttributes.addFlashAttribute("message", "Delete Failure");
-        return "redirect:/viewToDoList";
     }
 
-}
+    @GetMapping
+    public List<Task> getTaskByName(@RequestParam String title){
+        log.info("Вывод задач по названию ");
+        return taskService.findAllTasksByName(title);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteTask(@PathVariable Long id){
+        boolean isDeleted = taskService.deleteToDoItem(id);
+        log.info("Удаление задачи по id из списка задач",id);
+        if (isDeleted) {
+            return ResponseEntity.noContent().build();
+
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+    }

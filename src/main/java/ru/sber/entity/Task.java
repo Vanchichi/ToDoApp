@@ -1,24 +1,23 @@
 package ru.sber.entity;
 
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+import jakarta.persistence.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import jakarta.annotation.Nonnull;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 @Entity
-@Table (name="tasks")
+@Table (name="Tasks")
 public class Task {
 
     @Id
@@ -32,19 +31,27 @@ public class Task {
 
     @Column
     @Nonnull
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date date;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime date;
 
     @Column
     @Nonnull
-    private String status;
+    @Enumerated(EnumType.STRING)
+    private EStatus status;
+
+    @Column
+    @Nonnull
+    @Enumerated(EnumType.STRING)
+    private EPriority priority;
 
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_category", nullable = false)
+    private Category category;
 
-    private Long id_category;
 
-    private  Long id_group;
-    public Task() {
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_user", nullable = false)
+    private User user;
 
-    }
 }
