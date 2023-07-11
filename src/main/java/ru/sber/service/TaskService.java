@@ -13,6 +13,7 @@ import ru.sber.entity.EStatus;
 import ru.sber.repository.*;
 
 
+
 @Service
 public class TaskService {
 
@@ -20,17 +21,11 @@ public class TaskService {
     private final  TaskRepository repo;
     private final  CategoryService categoryService;
 
-    private final  ArchiveService archiveService;
 
     @Autowired
-    public TaskService(TaskRepository repo, CategoryService categoryService, ArchiveService archiveService) {
+    public TaskService(TaskRepository repo, CategoryService categoryService) {
         this.repo = repo;
         this.categoryService = categoryService;
-        this.archiveService = archiveService;
-    }
-
-    public List<Task> findAllTasksByName(String titleTask) {
-        return repo.findAllByTitleContainingIgnoreCase(titleTask);
     }
 
 
@@ -77,9 +72,46 @@ public class TaskService {
         return false;
     }
 
+
+    public boolean setInArchive (Long id){
+        Task todo = getToDoItemById(id);
+        todo.setArchive(true);
+        return saveOrUpdateToDoItem(todo);
+    }
+    public boolean getInArchive (Long id){
+        Task todo = getToDoItemById(id);
+        todo.setArchive(false);
+        return saveOrUpdateToDoItem(todo);
+    }
+    public List<Task> findAllNotInArchive(){
+        return repo.findAllByArchiveFalse();
+    }
+
+    public List<Task> findAllInArchive(){
+        return repo.findAllByArchiveTrue();
+    }
+
+
+    public List<Task> findTaskByName(String name) {
+        List<Task> tasks = new ArrayList<>();
+
+        tasks.addAll(repo.findAllByTitleContainingIgnoreCaseAndArchiveFalse(name));
+        tasks.addAll(repo.findAllByDescriptionContainingIgnoreCaseAndArchiveFalse(name));
+
+        return tasks;
+    }
+
+    public List<Task> findTaskByNameInArchive(String name) {
+        List<Task> tasks = new ArrayList<>();
+
+        tasks.addAll(repo.findAllByTitleContainingIgnoreCaseAndArchiveTrue(name));
+        tasks.addAll(repo.findAllByDescriptionContainingIgnoreCaseAndArchiveTrue(name));
+
+        return tasks;
+    }
+
     public boolean deleteToDoItem(Long id) {
         Task todo = getToDoItemById(id);
-        Long id_archive = archiveService.addToArchive(todo);
         repo.deleteById(id);
 
         if (repo.findById(id).isEmpty()) {

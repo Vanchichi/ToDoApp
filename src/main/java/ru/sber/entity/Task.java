@@ -5,10 +5,9 @@ import java.time.LocalDateTime;
 
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-import org.springframework.format.annotation.DateTimeFormat;
-
-import jakarta.annotation.Nonnull;
 import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -22,27 +21,33 @@ public class Task {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Nonnull
     private Long id;
 
-    @Column
-    @Nonnull
+    @Column(nullable = false)
     private String title;
 
-    @Column
-    @Nonnull
+    @Column(nullable = false)
+    private String description;
+
+
+    @Column(nullable = false)
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime date;
 
-    @Column
-    @Nonnull
+    @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private EStatus status;
 
-    @Column
-    @Nonnull
+    @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private EPriority priority;
+
+    @Column(nullable = false)
+    private boolean archive;
+
+   @Column(nullable = false)
+   @Enumerated(EnumType.STRING)
+    private ERegularity regularity;
 
 
     @ManyToOne(fetch = FetchType.LAZY)

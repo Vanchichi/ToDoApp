@@ -1,6 +1,9 @@
 package ru.sber.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.annotation.Nonnull;
 import jakarta.persistence.*;
 
@@ -18,14 +21,11 @@ import lombok.NoArgsConstructor;
         })
 public class Category {
     @Id
-    @Nonnull
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonIgnoreProperties
     private Long id;
 
-    @Nonnull
+    @Column(nullable = false)
     private String name;
 
-    public Category(String name) {
-        this.name = name;
-    }
 }

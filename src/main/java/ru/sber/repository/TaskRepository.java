@@ -12,6 +12,17 @@ import java.util.List;
 public interface TaskRepository extends JpaRepository<Task, Long>{
 
 
-    List<Task> findAllByTitleContainingIgnoreCase(String title);
+    List<Task> findAllByTitleContainingIgnoreCaseAndArchiveFalse(String title);
+
+    List<Task> findAllByDescriptionContainingIgnoreCaseAndArchiveFalse(String description);
+
+    List<Task> findAllByTitleContainingIgnoreCaseAndArchiveTrue(String title);
+
+    List<Task> findAllByDescriptionContainingIgnoreCaseAndArchiveTrue(String description);
+
+    List<Task> findAllByArchiveFalse();
+
+    List<Task> findAllByArchiveTrue();
+
 
 }

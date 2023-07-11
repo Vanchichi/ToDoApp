@@ -29,6 +29,7 @@ public class CategoryService {
 
     public boolean deleteCategory(Long id){
         Category category = getCategoryById(id);
+        repoCategory.deleteById(id);
         if (repoCategory.findById(id).isEmpty()) {
             return true;
         }
