@@ -2,24 +2,24 @@
     display: flex;
     flex-direction: row;
     height: 100vh;
-    background: linear-gradient(to right, #d8e2fc, #809eff);
+    background: linear-gradient(to right, #d8e2fc, #4d789d);
 }
 .registration-page-form {
     display: flex;
     flex-direction: row;
-    background: #cad8fd;
+    background: #aabedc;
 }
 .registration-page-text {
     display: flex;
     flex-direction: column;
-    color: #0749a3;
+    color: #1c4567;
     margin-top: 8%;
     align-items: flex-start;
     width: 50%;
     padding: 0 50px;
 }
 .registration-string{
-    background-color: #e5ecff;
+    background-color: #e5eaf6;
 }
 .registration-page-text img {
     margin-top: 20px;
@@ -32,15 +32,15 @@
     align-items: center;
     width: 50%;
     padding: 0 50px;
-    border-color: #0749a3 ;
+    border-color: #1c4567 ;
     border-width: 2px;
 }
 
 .password-input input {
-    background-color: #e5ecff;
+    background-color: #e5eaf6;
 }
 
 .reg-button{
-    background-color: #0a59c0;
-    color: white;
+    background-color: #1c4567;
+    color:#e5eaf6 ;
 }

@@ -1,0 +1,25 @@
+.search-input input {
+    background-color: #EFEADCFF;
+}
+
+.back-foto { background-color: #EFEADCFF;
+    background-image: url(../img/task-back.png);
+    background-size: contain; background-position: center;
+    background-repeat: no-repeat;
+}
+
+.input[type="checkbox"] {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border-radius: 50%;
+    width: 16px;
+    height: 16px;
+    border: 1px solid #c41010;
+    outline: none;
+    margin-right: 8px;
+}
+
+.input[type="checkbox"]:checked {
+    background-color: rgba(138, 55, 171, 0.91);
+}

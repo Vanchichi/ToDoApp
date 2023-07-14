@@ -2,7 +2,7 @@ import React from 'react';
 import { Radio } from 'antd';
 import { Link } from 'react-router-dom';
 import RegistrationCart from '../components/RegistrationCart';
-import transparentLogo from '../css/rei.png';
+import transparentLogo from '../img/rei.png';
 import '../css/RegistrationPage.css';
 
 const RegistrationPage = () => (

@@ -1,8 +1,9 @@
 package ru.sber.entity;
 
 public enum ERegularity {
-    IRREGULAR,
-    DAILY,
-    WEEKLY,
-    MONTHLY
+    Без_повторения,
+    Ежедневно,
+    Еженедельно,
+    Ежемесячно,
+
 }

@@ -1,0 +1,14 @@
+###Поиск всех задач в архиве
+GET localhost:8081/archive/all
+
+###Поиск по имени и описанию в архиве
+GET localhost:8081/archive?title=Сходить
+
+###Удаление задачи и добавление в архив
+DELETE localhost:8081/archive/in/102
+
+###Удаление задачи из архива и добавление обратно в список задач
+DELETE localhost:8081/archive/out/652
+
+###Удаление задачи из архива
+DELETE localhost:8081/archive/602

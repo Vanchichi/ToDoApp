@@ -22,17 +22,17 @@ const ButtonGroup = () => {
 
     return (
         <>
-            <Radio.Group defaultValue="login" buttonStyle="default" style={{ marginBottom: 20, marginLeft: 80 }}>
+            <Radio.Group defaultValue="login" buttonStyle="default" style={{ marginBottom: 20, marginLeft: 95 }}>
                 <Radio.Button
                     value="registration"
-                    onClick={() => handleButtonClick('/registration', 'registration')}
+                    onClick={() => handleButtonClick('/api/auth/signup', 'registration')}
                     className={activeButton === 'registration' ? 'reg-button active' : 'reg-button'}
                 >
                     Регистрация
                 </Radio.Button>
                 <Radio.Button
                     value="login"
-                    onClick={() => handleButtonClick('/auth', 'login')}
+                    onClick={() => handleButtonClick('/api/auth/signin', 'login')}
                     className={activeButton === 'login' ? 'reg-button active' : 'reg-button'}
                 >
                     Вход

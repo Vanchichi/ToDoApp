@@ -21,35 +21,32 @@ public class Task {
     @Column(nullable = false)
     private String title;
 
-    @Column(nullable = false)
+    @Column
     private String description;
 
-    @Column(nullable = false)
+    @Column
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime date;
 
-    @Column(nullable = false)
-    @Enumerated(EnumType.STRING)
-    private EStatus status;
+    @Column
+    private boolean status;
 
-    @Column(nullable = false)
+    @Column
     @Enumerated(EnumType.STRING)
     private EPriority priority;
 
     @Column(nullable = false)
     private boolean archive;
 
-   @Column(nullable = false)
+   @Column
    @Enumerated(EnumType.STRING)
     private ERegularity regularity;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "id_category", nullable = false)
     private Category category;
 
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_user", nullable = false)
-    private User user;
-
+    public boolean getStatus() {
+        return status;
+    }
 }

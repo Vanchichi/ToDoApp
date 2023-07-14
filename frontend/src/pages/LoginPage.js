@@ -1,5 +1,5 @@
 import LoginCart from "../components/LoginCart";
-import transparentLogo from '../css/rei.png';
+import transparentLogo from '../img/rei.png';
 import '../css/RegistrationPage.css';
 import React from "react";
 
