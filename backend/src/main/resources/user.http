@@ -1,0 +1,97 @@
+###Добавление задачи
+POST localhost:8081/task
+Content-Type: application/json
+
+{
+  "date": "2023-07-11 14:22:04",
+  "priority": "LOW",
+  "status": "PROCESSED",
+  "title": "Уборка",
+  "description": "Выкинуть бутылки",
+  "archive": false,
+  "regularity": "IRREGULAR",
+  "category": {
+    "id": 1
+  },
+  "user": {
+    "id": 1
+  }
+}
+
+###Изменение статуса
+PUT localhost:8081/task/status
+Content-Type: application/json
+
+{
+  "id": 602
+}
+
+###Изменение приоритета
+PUT localhost:8081/task/priority
+Content-Type: application/json
+
+{
+  "id": 602,
+  "priority": "LOW"
+}
+
+
+###Изменение категории
+PUT localhost:8081/task/category
+Content-Type: application/json
+
+{
+  "id": 602,
+  "category": {
+    "id": 1,
+    "name": "Закупка"
+  }
+}
+
+
+###Изменение всей задачи
+PUT localhost:8081/task
+Content-Type: application/json
+
+{
+  "id": 302,
+  "date": "2023-07-10 22:22:04",
+  "priority": "HIGH",
+  "status": "PROCESSED",
+  "title": "Помыть туалет у МУСИ",
+  "description": "Купить молоко",
+  "archive": false,
+  "regularity": "IRREGULAR",
+  "category": {
+    "id": 1,
+    "name": "Дом"
+  },
+  "user": {
+    "id": 1,
+    "username": "dasha",
+    "email": "blabla@bla.ru",
+    "password": "123123134"
+  }
+}
+
+###Поиск по имени и описанию в задачах
+GET localhost:8081/task?title=Сходить
+
+###Поиск по имени и описанию в архиве
+GET localhost:8081/task/archive?title=Сходить
+
+###Поиск всех задач не в архиве
+GET localhost:8081/task/all
+
+###Поиск всех задач в архиве
+GET localhost:8081/task/archive/all
+
+
+###Удаление задачи и добавление в архив
+DELETE localhost:8081/task/inArchive/102
+
+###Удаление задачи из архива и добавление обратно в список задач
+DELETE localhost:8081/task/OutArchive/652
+
+###Удаление задачи из архива
+DELETE localhost:8081/task/602

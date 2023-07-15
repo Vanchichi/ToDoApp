@@ -1,0 +1,28 @@
+###Добавление категории
+POST localhost:8081/category
+Content-Type: application/json
+
+{
+  "name": "Пицца",
+  "user": {
+    "id": 1
+  }
+}
+
+###Получение всех категорий
+GET localhost:8081/category/all
+
+###Изменение категории
+PUT localhost:8081/category
+Content-Type: application/json
+
+{
+  "id": 1,
+  "name": "Котенок",
+  "user": {
+    "id": 1
+  }
+}
+
+###Удаление категории
+DELETE localhost:8081/category/1

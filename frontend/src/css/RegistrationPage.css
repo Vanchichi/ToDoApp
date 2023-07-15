@@ -1,0 +1,46 @@
+.registration-page-container {
+    display: flex;
+    flex-direction: row;
+    height: 100vh;
+    background: linear-gradient(to right, #d8e2fc, #4d789d);
+}
+.registration-page-form {
+    display: flex;
+    flex-direction: row;
+    background: #aabedc;
+}
+.registration-page-text {
+    display: flex;
+    flex-direction: column;
+    color: #1c4567;
+    margin-top: 8%;
+    align-items: flex-start;
+    width: 50%;
+    padding: 0 50px;
+}
+.registration-string{
+    background-color: #e5eaf6;
+}
+.registration-page-text img {
+    margin-top: 20px;
+    width: 100%;
+}
+
+.registration-page-card {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+    padding: 0 50px;
+    border-color: #1c4567 ;
+    border-width: 2px;
+}
+
+.password-input input {
+    background-color: #e5eaf6;
+}
+
+.reg-button{
+    background-color: #1c4567;
+    color:#e5eaf6 ;
+}
